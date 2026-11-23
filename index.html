@@ -13,10 +13,12 @@
 
 <main id="inhoud">
   <header class="kop band">
-    <div class="wrap">
-      <h1 data-tekst="titel">AI-advies per leeftijd</h1>
-      <p class="kop__intro" data-tekst="inleiding">Verken hoe AI de ontwikkeling van mensen kan helpen of hinderen.</p>
-      <p><a class="knop knop--rand" href="#onderzoek" data-t="knop-onderzoek">Meer over het onderzoek</a></p>
+    <div class="wrap kop__in">
+      <div>
+        <h1 data-tekst="titel">AI-advies per leeftijd</h1>
+        <p class="kop__intro" data-tekst="inleiding">Verken hoe AI de ontwikkeling van mensen kan helpen of hinderen.</p>
+      </div>
+      <div id="waarom" class="tekst kop__waarom"></div>
     </div>
   </header>
 
@@ -25,27 +27,19 @@
       <h2 id="keuze-kop" class="sr">Maak een keuze</h2>
       <form id="keuze" class="keuze" novalidate>
         <div class="veld">
-          <label for="rol"><span class="veld__zin" data-t="zin-begin">Ik ben</span> <span class="sr" data-t="label-rol">Rol</span></label>
-          <select id="rol" name="rol"></select>
-        </div>
-        <div class="veld">
-          <label for="domein"><span class="veld__zin" data-t="zin-midden">en wil meer weten over</span> <span class="sr" data-t="label-domein">Ontwikkelingsdomein</span></label>
+          <label for="domein"><span class="veld__zin" data-t="zin-begin">Ik wil meer weten over</span> <span class="sr" data-t="label-domein">Ontwikkelingsdomein</span></label>
           <select id="domein" name="domein" required aria-describedby="uitleg-domein"></select>
         </div>
         <div class="veld">
           <label for="leeftijd"><span class="veld__zin" data-t="zin-eind">bij de leeftijd</span> <span class="sr" data-t="label-leeftijd">Leeftijdsgroep</span></label>
-          <select id="leeftijd" name="leeftijd" required aria-describedby="uitleg-leeftijd"></select>
+          <select id="leeftijd" name="leeftijd" required></select>
         </div>
         <div class="keuze__knoppen">
           <button class="knop knop--vol" type="submit" data-t="knop-toon">Toon het advies</button>
           <button class="knop knop--rand" type="button" id="wis" hidden data-t="knop-wis">Opnieuw beginnen</button>
         </div>
       </form>
-      <p id="rolnoot" class="noot" hidden></p>
-      <div class="uitleg">
-        <p id="uitleg-domein"></p>
-        <p id="uitleg-leeftijd"></p>
-      </div>
+      <p id="uitleg-domein" class="uitleg"></p>
       <p id="melding" class="melding" role="status" aria-live="polite"></p>
     </div>
   </section>
@@ -99,6 +93,11 @@
         </div>
       </section>
 
+      <nav class="buren geen-print" aria-label="Zelfde domein, andere leeftijd">
+        <button class="knop knop--rand" type="button" id="jonger"></button>
+        <button class="knop knop--rand" type="button" id="ouder"></button>
+      </nav>
+
       <div class="acties geen-print">
         <button class="knop knop--vol" type="button" id="afdrukken" data-t="knop-afdrukken">Afdrukken of opslaan als pdf</button>
         <button class="knop knop--rand" type="button" id="kopieer" data-t="knop-link">Kopieer de link naar dit advies</button>
@@ -107,17 +106,10 @@
     </div>
   </section>
 
-  <section id="lus" class="band band--lus" aria-labelledby="lus-kop">
+  <section id="achtergrond" class="band band--achtergrond" aria-labelledby="achtergrond-kop">
     <div class="wrap wrap--smal">
-      <h2 id="lus-kop">De menselijke lus</h2>
-      <div id="lus-tekst" class="tekst"></div>
-    </div>
-  </section>
-
-  <section id="onderzoek" class="band" aria-labelledby="onderzoek-kop" tabindex="-1">
-    <div class="wrap wrap--smal">
-      <h2 id="onderzoek-kop">Over het onderzoek</h2>
-      <div id="onderzoek-tekst" class="tekst"></div>
+      <h2 id="achtergrond-kop" data-t="kop-achtergrond">Achtergrond</h2>
+      <div id="uitklap" class="uitklap"></div>
     </div>
   </section>
 </main>
@@ -128,9 +120,9 @@
       <img id="logo" src="afbeeldingen/barendlast-logo.png" width="576" height="192" alt="Barend Last">
     </a>
     <div class="voet__tekst">
-      <p><a id="credit-link" href="https://www.barendlast.com"><strong id="credit">Omgezet en vertaald naar het Nederlands door Barend Last – Alle credits naar Harvard Graduate School of Education</strong></a></p>
-      <p id="voet-onderzoek"></p>
-      <p><a id="voet-origineel" href="https://compass.gse.harvard.edu/explore/">Naar het oorspronkelijke onderzoek en de tool van Harvard</a> · <a id="voet-compass" href="https://compass.gse.harvard.edu/">Over Compass Collaborative</a></p>
+      <p><a id="credit-link" href="https://www.barendlast.com"><strong id="credit">Gemaakt door Barend Last</strong></a><br><span id="credit-toelichting"></span></p>
+      <p><a id="voet-repo" href="https://github.com/barend-l/AI-leeftijdsadvies">Zelf gebruiken of aanpassen? Download de bestanden op GitHub</a></p>
+      <p><a id="voet-origineel" href="https://compass.gse.harvard.edu/explore/">Het oorspronkelijke onderzoek en de tool van Harvard</a></p>
       <p id="voet-rechten" class="voet__klein"></p>
     </div>
   </div>

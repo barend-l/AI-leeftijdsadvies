@@ -12,24 +12,19 @@ AI-advies per leeftijd
 
 Verken hoe AI de ontwikkeling van mensen kan helpen of hinderen, van baby tot volwassene.
 
-## Rollen
+## Wat heb je eraan
 
-Opbouw per regel: rol | leeftijdsgroepen die bovenaan in de keuzelijst komen | toelichting die onder de keuze verschijnt. De laatste twee delen mag je weglaten.
+Scholen, opleidingen en ouders moeten nu keuzes maken over AI, terwijl stevig onderzoek naar de gevolgen nog jaren op zich laat wachten. Onderzoekers van Harvard hebben daarom per leeftijd en per ontwikkelingsgebied uitgewerkt wat zich in die fase ontwikkelt en waar AI dat kan helpen of hinderen.
 
-- ouder of verzorger
-- pedagogisch medewerker in de kinderopvang | 0-2, 3-5
-- leraar in het basisonderwijs (po) | 3-5, 6-8, 9-11
-- leraar in het speciaal onderwijs (so, sbo of vso) | 3-5, 6-8, 9-11, 12-14, 15-17 | Noot bij de Nederlandse bewerking: Harvard beschrijft in deze versie vooral een neurotypische ontwikkeling. Bij leerlingen in het so, sbo en vso loopt de ontwikkeling niet altijd gelijk met de kalenderleeftijd. Kijk daarom ook bij een jongere of oudere leeftijdsgroep als die beter past bij de leerling.
-- leraar in het voortgezet onderwijs (vo) | 12-14, 15-17
-- docent in het mbo | 15-17, 18-25
-- docent in het hbo | 18-25, 26-40
-- docent in het wo | 18-25, 26-40
-- intern begeleider of zorgcoördinator | 3-5, 6-8, 9-11, 12-14, 15-17
-- schoolleider of bestuurder
-- opleider of trainer van volwassenen | 18-25, 26-40
-- leerling of student
-- onderzoeker
-- beleidsmaker
+Kies hieronder een ontwikkelingsdomein en een leeftijd. Je krijgt dan:
+
+- een korte samenvatting van wat er in die fase speelt;
+- concrete aanbevelingen voor het gebruik van AI;
+- de belangrijkste ontwikkelingsprocessen en mijlpalen;
+- onderbouwde hypotheses over waar AI kan hinderen en waar AI kan helpen;
+- de wetenschappelijke bronnen.
+
+Gebruik het als gespreksstof in een team, als onderbouwing voor AI-beleid of als houvast bij de vraag of een AI-toepassing past bij jouw leerlingen, studenten of kind. Het zijn hypotheses en geen voorschriften.
 
 ## Leeftijdsgroepen
 
@@ -63,26 +58,18 @@ Opbouw per regel: code (niet wijzigen) | naam | groep | omschrijving.
 
 Het deel vóór de dubbele punt is een code en blijft staan. Het deel erna is de tekst op de pagina.
 
-- zin-begin: Ik ben
-- zin-midden: en wil meer weten over
+- zin-begin: Ik wil meer weten over
 - zin-eind: bij de leeftijd
-- kies-rol: kies een rol (mag je overslaan)
 - kies-domein: kies een ontwikkelingsdomein
 - kies-leeftijd: kies een leeftijdsgroep
-- label-rol: Rol
 - label-domein: Ontwikkelingsdomein
 - label-leeftijd: Leeftijdsgroep
-- groep-passend: Past bij jouw rol
-- groep-overig: Overige leeftijden
 - knop-toon: Toon het advies
 - knop-wis: Opnieuw beginnen
-- knop-onderzoek: Meer over het onderzoek
 - melding-kies: Kies een ontwikkelingsdomein en een leeftijdsgroep om het advies te zien.
 - melding-laden: Het advies wordt geladen…
 - melding-fout: Het advies kon niet worden geladen. Probeer het later opnieuw.
 - melding-leeg: Voor deze combinatie is nog geen advies beschikbaar.
-- uitleg-domein: Ontwikkelingsdomeinen zijn de vermogens van de geest in ontwikkeling.
-- uitleg-leeftijd: De fase waarin iemand zit. Dezelfde AI-toepassing treft in een kind van vijf en een jongere van vijftien twee heel verschillende ontwikkelende breinen. De indeling vertrekt vanuit die van de American Academy of Pediatrics en is verder opgesplitst, zodat de schoolleeftijd en de adolescentie meer detail krijgen.
 - kop-kort: In het kort
 - kop-aanbevelingen: Onze aanbevelingen
 - kop-ontwikkeling: Belangrijke ontwikkelingsprocessen en mijlpalen
@@ -96,9 +83,11 @@ Het deel vóór de dubbele punt is een code en blijft staan. Het deel erna is de
 - kop-bronnen: Verder lezen
 - bronnen-toelichting: De bronnen zijn overgenomen uit de oorspronkelijke Engelstalige versie.
 - knop-afdrukken: Afdrukken of opslaan als pdf
+- knop-jonger: Jongere leeftijd
+- knop-ouder: Oudere leeftijd
+- kop-achtergrond: Achtergrond
 - knop-link: Kopieer de link naar dit advies
 - link-gekopieerd: De link staat op het klembord.
-- origineel: Bekijk dit advies in het Engelse origineel
 
 ## De menselijke lus
 
@@ -156,16 +145,18 @@ Deze versie richt zich vooral op neurotypische lerenden tot 40 jaar. Het meeste 
 
 ### Over deze Nederlandse bewerking
 
+Harvard beschrijft in deze versie vooral een neurotypische ontwikkeling. Bij leerlingen in het speciaal onderwijs (so, sbo en vso) loopt de ontwikkeling niet altijd gelijk met de kalenderleeftijd. Kijk dan ook bij een jongere of oudere leeftijdsgroep als die beter past bij de leerling. Deze opmerking komt van de vertaler en niet van Harvard.
+
 De teksten zijn vertaald uit het Engels en waar nodig aangepast aan het Nederlandse onderwijs: voorbeelden verwijzen naar kinderopvang, basisschool, voortgezet onderwijs, mbo, hbo en universiteit. De inhoud en de voorzichtige formuleringen van de hypotheses zijn gelijk gebleven. De bronnenlijsten zijn onvertaald overgenomen. Bij twijfel is het Engelse origineel leidend.
 
 ## Voettekst
 
-- credit: Omgezet en vertaald naar het Nederlands door Barend Last – Alle credits naar Harvard Graduate School of Education
+- credit: Gemaakt door Barend Last
+- credit-toelichting: Omgezet en vertaald naar het Nederlands. Alle credits naar Harvard Graduate School of Education.
 - logo-link: https://www.barendlast.com
 - logo-alt: Barend Last
-- onderzoek-tekst: Deze pagina is een Nederlandse bewerking van AI Guidance by Age van Compass Collaborative, Harvard Graduate School of Education.
-- onderzoek-link-tekst: Naar het oorspronkelijke onderzoek en de tool van Harvard
+- repo-tekst: Zelf gebruiken of aanpassen? Download de bestanden op GitHub
+- repo-link: https://github.com/barend-l/AI-leeftijdsadvies
+- onderzoek-link-tekst: Het oorspronkelijke onderzoek en de tool van Harvard
 - onderzoek-link: https://compass.gse.harvard.edu/explore/
-- compass-link-tekst: Over Compass Collaborative
-- compass-link: https://compass.gse.harvard.edu/
 - rechten: De oorspronkelijke teksten zijn © 2026 President and Fellows of Harvard College.

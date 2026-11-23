@@ -5,7 +5,7 @@
 
   var MAP = 'inhoud/';
   var $ = function (id) { return document.getElementById(id); };
-  var staat = { t: {}, rollen: [], leeftijden: [], domeinen: [], cache: {} };
+  var staat = { t: {}, leeftijden: [], domeinen: [], cache: {} };
 
   /* ---------- Markdown (klein en vergevingsgezind) ---------- */
 
@@ -91,10 +91,7 @@
     var delen = function (p) { return p.split('|').map(function (x) { return x.trim(); }); };
     staat.titel = zonderPunten(vind(s, 'titel'));
     staat.inleiding = zonderPunten(vind(s, 'inleiding'));
-    staat.rollen = punten(vind(s, 'rollen')).map(function (p) {
-      var d = delen(p);
-      return { naam: d[0], leeftijden: d[1] ? d[1].split(',').map(function (x) { return x.trim(); }).filter(Boolean) : [], noot: d[2] || '' };
-    });
+    staat.waarom = vind(s, 'wat heb je eraan');
     staat.leeftijden = punten(vind(s, 'leeftijdsgroepen')).map(function (p) {
       var d = delen(p); return { id: d[0], leeftijd: d[1] || d[0], naam: d[2] || '', context: d[3] || '' };
     });
@@ -148,27 +145,8 @@
 
   function leeftijdLabel(l) { return l.leeftijd + (l.context ? ' · ' + l.context : ''); }
 
-  function vulLeeftijden() {
-    var sel = $('leeftijd'), huidig = sel.value;
-    var rol = staat.rollen[+$('rol').value];
-    var passend = rol && $('rol').value !== '' ? rol.leeftijden : [];
-    sel.replaceChildren(optie('', t('kies-leeftijd', 'kies een leeftijdsgroep')));
-    var eerst = staat.leeftijden.filter(function (l) { return passend.indexOf(l.id) !== -1; });
-    if (eerst.length && eerst.length < staat.leeftijden.length) {
-      var g1 = document.createElement('optgroup'); g1.label = t('groep-passend', 'Past bij jouw rol');
-      var g2 = document.createElement('optgroup'); g2.label = t('groep-overig', 'Overige leeftijden');
-      staat.leeftijden.forEach(function (l) { (passend.indexOf(l.id) !== -1 ? g1 : g2).appendChild(optie(l.id, leeftijdLabel(l))); });
-      sel.append(g1, g2);
-    } else {
-      staat.leeftijden.forEach(function (l) { sel.appendChild(optie(l.id, leeftijdLabel(l))); });
-    }
-    sel.value = huidig;
-  }
-
   function vulFormulier() {
-    var rol = $('rol'), dom = $('domein');
-    rol.replaceChildren(optie('', t('kies-rol', 'kies een rol')));
-    staat.rollen.forEach(function (r, i) { rol.appendChild(optie(String(i), r.naam)); });
+    var dom = $('domein'), lft = $('leeftijd');
     dom.replaceChildren(optie('', t('kies-domein', 'kies een ontwikkelingsdomein')));
     var groepen = {};
     staat.domeinen.forEach(function (d) {
@@ -179,19 +157,14 @@
       }
       doel.appendChild(optie(d.id, d.naam));
     });
-    vulLeeftijden();
+    lft.replaceChildren(optie('', t('kies-leeftijd', 'kies een leeftijdsgroep')));
+    staat.leeftijden.forEach(function (l) { lft.appendChild(optie(l.id, leeftijdLabel(l))); });
   }
 
   function werkUitlegBij() {
     var d = staat.domeinen.filter(function (x) { return x.id === $('domein').value; })[0];
-    var l = staat.leeftijden.filter(function (x) { return x.id === $('leeftijd').value; })[0];
-    $('uitleg-domein').innerHTML = d ? '<strong>' + esc(d.naam) + '.</strong> ' + inline(d.uitleg) : inline(t('uitleg-domein'));
-    $('uitleg-leeftijd').innerHTML = l
-      ? '<strong>' + esc(l.leeftijd) + (l.naam ? ' – ' + esc(l.naam) : '') + '.</strong> ' + inline(t('uitleg-leeftijd'))
-      : inline(t('uitleg-leeftijd'));
-    var rol = staat.rollen[+$('rol').value], noot = $('rolnoot');
-    if ($('rol').value !== '' && rol && rol.noot) { noot.innerHTML = inline(rol.noot); noot.hidden = false; } else { noot.hidden = true; }
-    $('wis').hidden = !($('rol').value || $('domein').value || $('leeftijd').value);
+    $('uitleg-domein').innerHTML = d ? '<strong>' + esc(d.naam) + '.</strong> ' + inline(d.uitleg) : '';
+    $('wis').hidden = !($('domein').value || $('leeftijd').value);
   }
 
   /* ---------- Resultaat ---------- */
@@ -238,7 +211,7 @@
     if (!domId || !lftId) {
       melding.textContent = t('melding-kies', 'Kies een ontwikkelingsdomein en een leeftijdsgroep.');
       $('resultaat').hidden = true;
-      (domId ? $('leeftijd') : $('domein')).focus();
+      (domId ? $("leeftijd") : $("domein")).focus();
       return;
     }
     var d = staat.domeinen.filter(function (x) { return x.id === domId; })[0];
@@ -249,7 +222,6 @@
       if (!c) { melding.textContent = t('melding-leeg', 'Nog geen advies beschikbaar.'); $('resultaat').hidden = true; return; }
       melding.textContent = '';
       $('resultaat-kop').textContent = d.naam + ' · ' + l.leeftijd;
-      var rol = staat.rollen[+$('rol').value];
       $('resultaat-sub').textContent = [l.naam, l.context].filter(Boolean).join(' · ');
       $('kort-lead').innerHTML = blokken(c.kort);
       $('kort-ai').innerHTML = blokken(c.ai);
@@ -268,10 +240,10 @@
       var n = $('bronnen').querySelectorAll('p, li').length;
       $('bronnen-aantal').textContent = t('kop-bronnen', 'Verder lezen') + ' (' + n + ')';
       toon('blok-bronnen', !!c.bronnen);
+      werkBurenBij(lftId);
       $('resultaat').hidden = false;
       document.title = d.naam + ' · ' + l.leeftijd + ' – ' + staat.titel;
       var p = new URLSearchParams(); p.set('leeftijd', lftId); p.set('domein', domId);
-      if ($('rol').value !== '' && rol) p.set('rol', $('rol').value);
       try { history.replaceState(null, '', '?' + p.toString()); } catch (e) { /* bv. file:// */ }
       if (focus) {
         var rustig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -284,6 +256,22 @@
     });
   }
 
+  function werkBurenBij(lftId) {
+    var i = staat.leeftijden.map(function (x) { return x.id; }).indexOf(lftId);
+    [['jonger', i - 1, '← ', ''], ['ouder', i + 1, '', ' →']].forEach(function (k) {
+      var l = staat.leeftijden[k[1]], knop = $(k[0]);
+      knop.hidden = !l;
+      if (l) { knop.textContent = k[2] + t('knop-' + k[0]) + ': ' + l.leeftijd + k[3]; knop.dataset.leeftijd = l.id; }
+    });
+  }
+
+  function maakUitklap(kop, md) {
+    var d = document.createElement('details'); d.className = 'uitklap__item';
+    var s = document.createElement('summary'); s.innerHTML = inline(kop);
+    var inhoud = document.createElement('div'); inhoud.className = 'tekst'; inhoud.innerHTML = blokken(md);
+    d.append(s, inhoud); return d;
+  }
+
   /* ---------- Start ---------- */
 
   function vulTeksten() {
@@ -292,17 +280,20 @@
     });
     if (staat.titel) { document.querySelector('[data-tekst="titel"]').textContent = staat.titel; document.title = staat.titel; }
     if (staat.inleiding) document.querySelector('[data-tekst="inleiding"]').innerHTML = inline(staat.inleiding);
-    $('lus-tekst').innerHTML = blokken(staat.lus);
-    $('onderzoek-tekst').innerHTML = blokken(staat.onderzoek);
+    $('waarom').innerHTML = blokken(staat.waarom);
+    var uitklap = [];
+    if (staat.onderzoek) secties(staat.onderzoek, 3).forEach(function (x) { uitklap.push(maakUitklap(x.kop, x.tekst)); });
+    if (staat.lus) uitklap.push(maakUitklap('De menselijke lus', staat.lus));
+    $('uitklap').replaceChildren.apply($('uitklap'), uitklap);
     var v = staat.t;
     if (v['credit']) $('credit').textContent = v['credit'];
+    if (v['credit-toelichting']) $('credit-toelichting').textContent = v['credit-toelichting'];
     if (v['logo-link']) { $('logo-link').href = v['logo-link']; $('credit-link').href = v['logo-link']; }
     if (v['logo-alt']) $('logo').alt = v['logo-alt'];
-    if (v['onderzoek-tekst']) $('voet-onderzoek').textContent = v['onderzoek-tekst'];
+    if (v['repo-tekst']) $('voet-repo').textContent = v['repo-tekst'];
+    if (v['repo-link']) $('voet-repo').href = v['repo-link'];
     if (v['onderzoek-link-tekst']) $('voet-origineel').textContent = v['onderzoek-link-tekst'];
     if (v['onderzoek-link']) $('voet-origineel').href = v['onderzoek-link'];
-    if (v['compass-link-tekst']) $('voet-compass').textContent = v['compass-link-tekst'];
-    if (v['compass-link']) $('voet-compass').href = v['compass-link'];
     if (v['rechten']) $('voet-rechten').textContent = v['rechten'];
   }
 
@@ -310,7 +301,6 @@
     haal('algemeen.md').then(function (md) {
       leesAlgemeen(md); vulTeksten(); vulFormulier();
       var p = new URLSearchParams(location.search);
-      if (p.get('rol') && staat.rollen[+p.get('rol')]) { $('rol').value = p.get('rol'); vulLeeftijden(); }
       if (p.get('domein')) $('domein').value = p.get('domein');
       if (p.get('leeftijd')) $('leeftijd').value = p.get('leeftijd');
       werkUitlegBij();
@@ -320,16 +310,21 @@
     });
 
     $('keuze').addEventListener('submit', function (e) { e.preventDefault(); toonResultaat(true); });
-    $('rol').addEventListener('change', function () { vulLeeftijden(); werkUitlegBij(); });
     ['domein', 'leeftijd'].forEach(function (id) {
-      $(id).addEventListener('change', function () { $('resultaat').hidden = true; $('melding').textContent = ''; werkUitlegBij(); });
+      $(id).addEventListener('change', function () {
+        $('melding').textContent = ''; werkUitlegBij();
+        if ($('domein').value && $('leeftijd').value) toonResultaat(false); else $('resultaat').hidden = true;
+      });
     });
     $('wis').addEventListener('click', function () {
-      $('keuze').reset(); vulLeeftijden(); werkUitlegBij();
+      $('keuze').reset(); werkUitlegBij();
       $('resultaat').hidden = true; $('melding').textContent = '';
       document.title = staat.titel || document.title;
       try { history.replaceState(null, '', location.pathname); } catch (e) { /* niets */ }
-      $('rol').focus();
+      $('domein').focus();
+    });
+    ['jonger', 'ouder'].forEach(function (id) {
+      $(id).addEventListener('click', function () { $('leeftijd').value = this.dataset.leeftijd; werkUitlegBij(); toonResultaat(true); });
     });
     $('alles').addEventListener('click', function () {
       var open = this.getAttribute('aria-pressed') !== 'true';
