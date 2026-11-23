@@ -152,12 +152,12 @@ De teksten zijn vertaald uit het Engels en waar nodig aangepast aan het Nederlan
 
 ## Voettekst
 
-- credit: Gemaakt door Barend Last
-- credit-toelichting: Omgezet en vertaald naar het Nederlands. Alle credits naar Harvard Graduate School of Education.
-- logo-link: https://www.barendlast.com
-- logo-alt: Barend Last
-- repo-tekst: Zelf gebruiken of aanpassen? Download de bestanden op GitHub
+- credit-voor: Gemaakt door
+- credit-naam: Barend Last
+- credit-link: https://www.barendlast.com
+- credit-toelichting: Nederlandse bewerking van AI Guidance by Age. Alle credits naar Harvard Graduate School of Education.
+- repo-tekst: Download en pas zelf aan via GitHub
 - repo-link: https://github.com/barend-l/AI-leeftijdsadvies
-- onderzoek-link-tekst: Het oorspronkelijke onderzoek en de tool van Harvard
+- onderzoek-link-tekst: Origineel van Harvard
 - onderzoek-link: https://compass.gse.harvard.edu/explore/
-- rechten: De oorspronkelijke teksten zijn © 2026 President and Fellows of Harvard College.
+- rechten: Oorspronkelijke teksten © 2026 President and Fellows of Harvard College.

@@ -177,13 +177,21 @@ details summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0; min-hei
 .uitklap__item .tekst { padding-bottom: 1.25rem; }
 
 /* Voet */
-.voet { border-top: 1px solid var(--lijn); padding-block: 1.5rem 2rem; font-size: 0.9em; }
-.voet__in { display: grid; gap: 1rem; align-items: center; }
-.voet__logo { display: inline-block; background: #fff; border-radius: 6px; padding: 0.15rem; justify-self: start; }
-.voet__logo img { display: block; width: 8.5rem; height: auto; }
-.voet__tekst p { margin: 0 0 0.35rem; }
-.voet__klein { font-size: 0.9em; color: var(--zacht); }
-@media (min-width: 40rem) { .voet__in { grid-template-columns: auto 1fr; gap: 1.75rem; } }
+.voet { border-top: 1px solid var(--lijn); padding-block: 1.5rem 2rem; font-size: 0.9em; color: var(--zacht); }
+.voet__in { display: grid; gap: 0.25rem 2rem; }
+.voet p { margin: 0; }
+.voet__maker { color: var(--inkt); font-weight: 700; font-size: 1.1em; }
+.voet__maker a { color: inherit; }
+.voet__toelichting { max-width: 40rem; }
+.voet__links { list-style: none; margin: 0.6rem 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; }
+.voet__links a { display: inline-block; padding-block: 0.5rem; }
+.voet__klein { font-size: 0.9em; margin-top: 0.4rem !important; }
+@media (min-width: 52rem) {
+  .voet__in { grid-template-columns: 1fr auto; align-items: start; }
+  .voet__links { grid-column: 2; grid-row: 1 / span 2; margin: 0; justify-content: flex-end; flex-direction: column; align-items: flex-end; gap: 0; }
+  .voet__links a { padding-block: 0.15rem; }
+  .voet__klein { grid-column: 1 / -1; }
+}
 
 /* Afdrukken */
 @media print {
@@ -199,5 +207,5 @@ details summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0; min-hei
   .aanbevelingen li::before { border: 1.5px solid #000; background: #fff; }
   a { text-decoration: none; }
   .voet { padding-block: 1rem; }
-  .voet__logo img { width: 6rem; }
+  .voet__links { display: none; }
 }

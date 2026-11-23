@@ -290,10 +290,10 @@
     if (staat.lus) uitklap.push(maakUitklap('De menselijke lus', staat.lus));
     $('uitklap').replaceChildren.apply($('uitklap'), uitklap);
     var v = staat.t;
-    if (v['credit']) $('credit').textContent = v['credit'];
-    if (v['credit-toelichting']) $('credit-toelichting').textContent = v['credit-toelichting'];
-    if (v['logo-link']) { $('logo-link').href = v['logo-link']; $('credit-link').href = v['logo-link']; }
-    if (v['logo-alt']) $('logo').alt = v['logo-alt'];
+    if (v['credit-voor']) $('credit-voor').textContent = v['credit-voor'];
+    if (v['credit-naam']) $('credit-link').textContent = v['credit-naam'];
+    if (v['credit-link']) $('credit-link').href = v['credit-link'];
+    if (v['credit-toelichting']) $('credit-toelichting').innerHTML = inline(v['credit-toelichting']);
     if (v['repo-tekst']) $('voet-repo').textContent = v['repo-tekst'];
     if (v['repo-link']) $('voet-repo').href = v['repo-link'];
     if (v['onderzoek-link-tekst']) $('voet-origineel').textContent = v['onderzoek-link-tekst'];
