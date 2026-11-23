@@ -10,13 +10,13 @@ AI-advies per leeftijd
 
 ## Inleiding
 
-Verken hoe AI de ontwikkeling van mensen kan helpen of hinderen, van baby tot volwassene.
+Wat AI met leren en opgroeien doet, hangt af van de leeftijd en van wat iemand op dat moment ontwikkelt. Onderzoekers van Harvard hebben dat per leeftijdsgroep en per ontwikkelingsdomein uitgewerkt. Kies hieronder een domein en een leeftijd. Je ziet dan wat er in die fase speelt, waar AI kan helpen of hinderen en wat je daarmee kunt doen.
 
 ## Wat heb je eraan
 
 Scholen, opleidingen en ouders moeten nu keuzes maken over AI, terwijl stevig onderzoek naar de gevolgen nog jaren op zich laat wachten. Onderzoekers van Harvard hebben daarom per leeftijd en per ontwikkelingsgebied uitgewerkt wat zich in die fase ontwikkelt en waar AI dat kan helpen of hinderen.
 
-Kies hierboven een ontwikkelingsdomein en een leeftijd. Je krijgt dan:
+Kies bovenaan een ontwikkelingsdomein en een leeftijd. Je krijgt dan:
 
 - een korte samenvatting van wat er in die fase speelt;
 - concrete aanbevelingen voor het gebruik van AI;
@@ -152,12 +152,7 @@ De teksten zijn vertaald uit het Engels en waar nodig aangepast aan het Nederlan
 
 ## Voettekst
 
-- credit-voor: Gemaakt door
-- credit-naam: Barend Last
-- credit-link: https://www.barendlast.com
-- credit-toelichting: Nederlandse bewerking van AI Guidance by Age. Alle credits naar Harvard Graduate School of Education.
+- tekst: Nederlandse bewerking van [AI Guidance by Age](https://compass.gse.harvard.edu/explore/) van de Harvard Graduate School of Education, gemaakt door [Barend Last](https://www.barendlast.com). Alle credits naar Harvard.
 - repo-tekst: Download en pas zelf aan via GitHub
 - repo-link: https://github.com/barend-l/AI-leeftijdsadvies
-- onderzoek-link-tekst: Origineel van Harvard
-- onderzoek-link: https://compass.gse.harvard.edu/explore/
 - rechten: Oorspronkelijke teksten © 2026 President and Fellows of Harvard College.

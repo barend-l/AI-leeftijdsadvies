@@ -206,8 +206,7 @@
 
   function toon(blokId, zichtbaar) { $(blokId).hidden = !zichtbaar; }
 
-  /* De uitleg staat er alleen zolang er geen advies wordt getoond. */
-  function verbergResultaat() { $('resultaat').hidden = true; $('leeg').hidden = false; }
+  function verbergResultaat() { $('resultaat').hidden = true; }
 
   function toonResultaat(focus) {
     var domId = $('domein').value, lftId = $('leeftijd').value, melding = $('melding');
@@ -244,7 +243,7 @@
       $('bronnen-aantal').textContent = t('kop-bronnen', 'Verder lezen') + ' (' + n + ')';
       toon('blok-bronnen', !!c.bronnen);
       werkBurenBij(lftId);
-      $('resultaat').hidden = false; $('leeg').hidden = true;
+      $('resultaat').hidden = false;
       document.title = d.naam + ' · ' + l.leeftijd + ' – ' + staat.titel;
       var p = new URLSearchParams(); p.set('leeftijd', lftId); p.set('domein', domId);
       try { history.replaceState(null, '', '?' + p.toString()); } catch (e) { /* bv. file:// */ }
@@ -283,21 +282,15 @@
     });
     if (staat.titel) { document.querySelector('[data-tekst="titel"]').textContent = staat.titel; document.title = staat.titel; }
     if (staat.inleiding) document.querySelector('[data-tekst="inleiding"]').innerHTML = inline(staat.inleiding);
-    $('waarom').innerHTML = blokken(staat.waarom);
     var uitklap = [];
     if (staat.waarom) uitklap.push(maakUitklap(t('kop-waarom', 'Wat heb je aan deze tool?'), staat.waarom));
     if (staat.onderzoek) secties(staat.onderzoek, 3).forEach(function (x) { uitklap.push(maakUitklap(x.kop, x.tekst)); });
     if (staat.lus) uitklap.push(maakUitklap('De menselijke lus', staat.lus));
     $('uitklap').replaceChildren.apply($('uitklap'), uitklap);
     var v = staat.t;
-    if (v['credit-voor']) $('credit-voor').textContent = v['credit-voor'];
-    if (v['credit-naam']) $('credit-link').textContent = v['credit-naam'];
-    if (v['credit-link']) $('credit-link').href = v['credit-link'];
-    if (v['credit-toelichting']) $('credit-toelichting').innerHTML = inline(v['credit-toelichting']);
+    if (v['tekst']) $('voet-tekst').innerHTML = inline(v['tekst']);
     if (v['repo-tekst']) $('voet-repo').textContent = v['repo-tekst'];
     if (v['repo-link']) $('voet-repo').href = v['repo-link'];
-    if (v['onderzoek-link-tekst']) $('voet-origineel').textContent = v['onderzoek-link-tekst'];
-    if (v['onderzoek-link']) $('voet-origineel').href = v['onderzoek-link'];
     if (v['rechten']) $('voet-rechten').textContent = v['rechten'];
   }
 
