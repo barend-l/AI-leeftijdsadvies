@@ -16,7 +16,7 @@ Verken hoe AI de ontwikkeling van mensen kan helpen of hinderen, van baby tot vo
 
 Scholen, opleidingen en ouders moeten nu keuzes maken over AI, terwijl stevig onderzoek naar de gevolgen nog jaren op zich laat wachten. Onderzoekers van Harvard hebben daarom per leeftijd en per ontwikkelingsgebied uitgewerkt wat zich in die fase ontwikkelt en waar AI dat kan helpen of hinderen.
 
-Kies hieronder een ontwikkelingsdomein en een leeftijd. Je krijgt dan:
+Kies hierboven een ontwikkelingsdomein en een leeftijd. Je krijgt dan:
 
 - een korte samenvatting van wat er in die fase speelt;
 - concrete aanbevelingen voor het gebruik van AI;
@@ -85,6 +85,7 @@ Het deel vóór de dubbele punt is een code en blijft staan. Het deel erna is de
 - knop-afdrukken: Afdrukken of opslaan als pdf
 - knop-jonger: Jongere leeftijd
 - knop-ouder: Oudere leeftijd
+- kop-waarom: Wat heb je aan deze tool?
 - kop-achtergrond: Achtergrond
 - knop-link: Kopieer de link naar dit advies
 - link-gekopieerd: De link staat op het klembord.

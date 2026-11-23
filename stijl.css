@@ -56,12 +56,13 @@ p { margin: 0 0 1em; }
 .band { padding-block: clamp(2rem, 5vw, 4rem); }
 
 /* Kop */
-.kop h1 { font-size: clamp(2.25rem, 1.4rem + 4.5vw, 4.5rem); font-weight: 800; letter-spacing: -0.02em; }
-.kop__intro { font-size: clamp(1.15rem, 1rem + 0.8vw, 1.5rem); color: var(--zacht); max-width: 40rem; margin: 1rem 0 0; }
-.kop__in { display: grid; gap: 1.5rem 3rem; }
-.kop__waarom { max-width: 44rem; }
-.kop__waarom li { margin-bottom: 0.25em; }
-@media (min-width: 64rem) { .kop__in { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); align-items: start; } .kop__waarom { padding-top: 0.75rem; } }
+.kop { padding-block: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.5rem); }
+.kop h1 { font-size: clamp(1.75rem, 1.2rem + 2.8vw, 3.25rem); font-weight: 800; letter-spacing: -0.02em; }
+.kop__intro { font-size: clamp(1rem, 0.95rem + 0.4vw, 1.25rem); color: var(--zacht); max-width: 44rem; margin: 0.5rem 0 0; }
+.band--keuze { padding-block: clamp(1.25rem, 3vw, 2.25rem); }
+.band--leeg { padding-block: clamp(1.5rem, 4vw, 3rem); }
+.band--leeg h2 { font-size: clamp(1.2rem, 1.05rem + 0.7vw, 1.5rem); font-weight: 800; margin-bottom: 0.75rem; }
+.band--leeg li { margin-bottom: 0.25em; }
 
 /* Knoppen */
 .knop {
@@ -188,7 +189,7 @@ details summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0; min-hei
 @media print {
   :root { --bg: #fff; --vlak: #fff; --inkt: #000; --zacht: #333; --lijn: #999; --link: #000; --hinder: #7a1a10; --help: #0f4a2a; --hinder-bg: #fff; --help-bg: #fff; }
   body { font-size: 10.5pt; }
-  .kop, .band--keuze, .band--achtergrond, .geen-print, .skip { display: none !important; }
+  .kop, .band--keuze, .band--leeg, .band--achtergrond, .geen-print, .skip { display: none !important; }
   .resultaat { padding: 0; }
   .blok { display: block; break-inside: auto; }
   .blok h3 { margin-bottom: 0.5rem; break-after: avoid; }

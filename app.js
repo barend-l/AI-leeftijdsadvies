@@ -206,11 +206,14 @@
 
   function toon(blokId, zichtbaar) { $(blokId).hidden = !zichtbaar; }
 
+  /* De uitleg staat er alleen zolang er geen advies wordt getoond. */
+  function verbergResultaat() { $('resultaat').hidden = true; $('leeg').hidden = false; }
+
   function toonResultaat(focus) {
     var domId = $('domein').value, lftId = $('leeftijd').value, melding = $('melding');
     if (!domId || !lftId) {
       melding.textContent = t('melding-kies', 'Kies een ontwikkelingsdomein en een leeftijdsgroep.');
-      $('resultaat').hidden = true;
+      verbergResultaat();
       (domId ? $("leeftijd") : $("domein")).focus();
       return;
     }
@@ -219,7 +222,7 @@
     melding.textContent = t('melding-laden', 'Het advies wordt geladen…');
     laadLeeftijd(lftId).then(function (cellen) {
       var c = cellen[domId];
-      if (!c) { melding.textContent = t('melding-leeg', 'Nog geen advies beschikbaar.'); $('resultaat').hidden = true; return; }
+      if (!c) { melding.textContent = t('melding-leeg', 'Nog geen advies beschikbaar.'); verbergResultaat(); return; }
       melding.textContent = '';
       $('resultaat-kop').textContent = d.naam + ' · ' + l.leeftijd;
       $('resultaat-sub').textContent = [l.naam, l.context].filter(Boolean).join(' · ');
@@ -241,7 +244,7 @@
       $('bronnen-aantal').textContent = t('kop-bronnen', 'Verder lezen') + ' (' + n + ')';
       toon('blok-bronnen', !!c.bronnen);
       werkBurenBij(lftId);
-      $('resultaat').hidden = false;
+      $('resultaat').hidden = false; $('leeg').hidden = true;
       document.title = d.naam + ' · ' + l.leeftijd + ' – ' + staat.titel;
       var p = new URLSearchParams(); p.set('leeftijd', lftId); p.set('domein', domId);
       try { history.replaceState(null, '', '?' + p.toString()); } catch (e) { /* bv. file:// */ }
@@ -252,7 +255,7 @@
       }
     }).catch(function () {
       melding.textContent = t('melding-fout', 'Het advies kon niet worden geladen.');
-      $('resultaat').hidden = true;
+      verbergResultaat();
     });
   }
 
@@ -282,6 +285,7 @@
     if (staat.inleiding) document.querySelector('[data-tekst="inleiding"]').innerHTML = inline(staat.inleiding);
     $('waarom').innerHTML = blokken(staat.waarom);
     var uitklap = [];
+    if (staat.waarom) uitklap.push(maakUitklap(t('kop-waarom', 'Wat heb je aan deze tool?'), staat.waarom));
     if (staat.onderzoek) secties(staat.onderzoek, 3).forEach(function (x) { uitklap.push(maakUitklap(x.kop, x.tekst)); });
     if (staat.lus) uitklap.push(maakUitklap('De menselijke lus', staat.lus));
     $('uitklap').replaceChildren.apply($('uitklap'), uitklap);
@@ -313,12 +317,12 @@
     ['domein', 'leeftijd'].forEach(function (id) {
       $(id).addEventListener('change', function () {
         $('melding').textContent = ''; werkUitlegBij();
-        if ($('domein').value && $('leeftijd').value) toonResultaat(false); else $('resultaat').hidden = true;
+        if ($('domein').value && $('leeftijd').value) toonResultaat(false); else verbergResultaat();
       });
     });
     $('wis').addEventListener('click', function () {
       $('keuze').reset(); werkUitlegBij();
-      $('resultaat').hidden = true; $('melding').textContent = '';
+      verbergResultaat(); $('melding').textContent = '';
       document.title = staat.titel || document.title;
       try { history.replaceState(null, '', location.pathname); } catch (e) { /* niets */ }
       $('domein').focus();
