@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Beheer – AI-advies per leeftijd</title>
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="../stijl.css">
+<link rel="stylesheet" href="beheer.css">
+</head>
+<body class="beheer">
+
+<main id="inlog" class="inlog">
+  <form id="inlog-formulier" class="inlog__kaart" novalidate>
+    <h1>Beheer</h1>
+    <p>Pas hier de teksten van AI-advies per leeftijd aan.</p>
+    <div class="veld">
+      <label for="wachtwoord">Wachtwoord</label>
+      <input id="wachtwoord" type="password" autocomplete="current-password" required aria-describedby="inlog-melding">
+    </div>
+    <p id="inlog-melding" class="melding" role="alert"></p>
+    <button class="knop knop--vol" type="submit">Inloggen</button>
+    <p class="inlog__terug"><a href="../">Terug naar de website</a></p>
+  </form>
+</main>
+
+<div id="dashboard" hidden>
+  <header class="balk">
+    <div class="wrap balk__in">
+      <p class="balk__titel">Beheer <span>· AI-advies per leeftijd</span></p>
+      <p class="balk__links"><a href="../" target="_blank" rel="noopener">Bekijk de website</a> <button type="button" id="uitloggen" class="linkknop">Uitloggen</button></p>
+    </div>
+  </header>
+
+  <main class="wrap beheer__in">
+    <div id="waarschuwing" class="noot noot--let-op" role="status" hidden></div>
+    <p id="modus" class="modus"></p>
+
+    <nav class="tabs" aria-label="Onderdelen">
+      <button type="button" class="tab" data-tab="adviezen" aria-pressed="true">Adviezen</button>
+      <button type="button" class="tab" data-tab="algemeen" aria-pressed="false">Algemene teksten</button>
+      <button type="button" class="tab" data-tab="indeling" aria-pressed="false">Leeftijden en domeinen</button>
+      <button type="button" class="tab" data-tab="hulp" aria-pressed="false">Uitleg</button>
+    </nav>
+
+    <section id="tab-adviezen" class="paneel" aria-labelledby="kop-adviezen">
+      <h2 id="kop-adviezen">Adviezen</h2>
+      <p class="hint">Kies een leeftijdsgroep en een domein. Wat je aanpast, wordt onthouden tot je het opslaat.</p>
+      <div class="kiezer">
+        <div class="veld"><label for="b-leeftijd">Leeftijdsgroep</label><select id="b-leeftijd"></select></div>
+        <div class="veld"><label for="b-domein">Ontwikkelingsdomein</label><select id="b-domein"></select></div>
+      </div>
+      <div id="advies"></div>
+    </section>
+
+    <section id="tab-algemeen" class="paneel" aria-labelledby="kop-algemeen" hidden>
+      <h2 id="kop-algemeen">Algemene teksten</h2>
+      <p class="hint">De titel, de inleiding, alle knoppen en koppen, de uitklapteksten onder "Achtergrond" en de voettekst.</p>
+      <div id="algemeen"></div>
+    </section>
+
+    <section id="tab-indeling" class="paneel" aria-labelledby="kop-indeling" hidden>
+      <h2 id="kop-indeling">Leeftijden en domeinen</h2>
+      <p class="hint">De namen en omschrijvingen in de keuzelijsten. De codes zijn vast, omdat de tekstbestanden daaraan gekoppeld zijn.</p>
+      <div id="indeling"></div>
+    </section>
+
+    <section id="tab-hulp" class="paneel tekst" aria-labelledby="kop-hulp" hidden>
+      <h2 id="kop-hulp">Uitleg</h2>
+      <h3>Opmaak</h3>
+      <ul>
+        <li><code>**vet**</code> wordt <strong>vet</strong> en <code>*cursief*</code> wordt <em>cursief</em>.</li>
+        <li>Een regel die begint met <code>- </code> wordt een opsommingspunt, <code>1. </code> een genummerd punt.</li>
+        <li>Een link schrijf je als <code>[tekst](https://voorbeeld.nl)</code>.</li>
+        <li>Een lege regel begint een nieuwe alinea.</li>
+      </ul>
+      <h3>Opslaan</h3>
+      <p id="hulp-opslaan"></p>
+      <h3>Voorbeeld bekijken</h3>
+      <p>Met "Voorbeeld bekijken" zie je de website met jouw wijzigingen, ook als ze nog niet zijn opgeslagen. Alleen jij ziet dat voorbeeld, in deze browser.</p>
+      <h3>Wachtwoord wijzigen</h3>
+      <p id="hulp-wachtwoord"></p>
+      <h3>Iets misgegaan?</h3>
+      <p id="hulp-herstel"></p>
+    </section>
+  </main>
+
+  <div class="opslagbalk" role="region" aria-label="Wijzigingen">
+    <div class="wrap opslagbalk__in">
+      <p id="status" class="opslagbalk__status" role="status" aria-live="polite">Geen wijzigingen.</p>
+      <div class="opslagbalk__knoppen">
+        <button type="button" id="herstel" class="knop knop--rand knop--klein" hidden>Ongedaan maken</button>
+        <button type="button" id="voorbeeld" class="knop knop--rand knop--klein">Voorbeeld bekijken</button>
+        <button type="button" id="opslaan" class="knop knop--vol knop--klein" disabled>Opslaan</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<noscript><p class="wrap melding">Het dashboard heeft JavaScript nodig.</p></noscript>
+<script src="instellingen.js"></script>
+<script src="model.js"></script>
+<script src="beheer.js"></script>
+</body>
+</html>

@@ -55,6 +55,9 @@ p { margin: 0 0 1em; }
 .wrap--smal { width: min(100% - 2rem, 46rem); }
 .band { padding-block: clamp(2rem, 5vw, 4rem); }
 
+/* Voorbeeld vanuit het dashboard */
+.conceptband { margin: 0; padding: 0.6rem 1rem; background: var(--inkt); color: var(--bg); font-weight: 700; text-align: center; font-size: 0.95em; }
+
 /* Kop */
 .kop { padding-block: clamp(1.25rem, 3vw, 2.5rem) clamp(1rem, 2vw, 1.5rem); }
 .kop h1 { font-size: clamp(1.75rem, 1.2rem + 2.8vw, 3.25rem); font-weight: 800; letter-spacing: -0.02em; }
@@ -190,7 +193,7 @@ details summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0; min-hei
 @media print {
   :root { --bg: #fff; --vlak: #fff; --inkt: #000; --zacht: #333; --lijn: #999; --link: #000; --hinder: #7a1a10; --help: #0f4a2a; --hinder-bg: #fff; --help-bg: #fff; }
   body { font-size: 10.5pt; }
-  .kop, .band--keuze,   .resultaat { padding: 0; }
+  .kop, .conceptband, .band--keuze,   .resultaat { padding: 0; }
   .blok { display: block; break-inside: auto; }
   .blok h3 { margin-bottom: 0.5rem; break-after: avoid; }
   .factor { break-inside: avoid; }

@@ -1,0 +1,76 @@
+/* Dashboard – bouwt voort op ../stijl.css */
+.beheer { padding-bottom: 11rem; }
+@media (min-width: 48rem) { .beheer { padding-bottom: 6rem; } }
+.beheer h2 { font-size: clamp(1.4rem, 1.2rem + 1vw, 1.9rem); font-weight: 800; margin-bottom: 0.5rem; }
+.beheer h3 { font-size: 1.15rem; font-weight: 800; margin: 2rem 0 0.75rem; }
+.hint { color: var(--zacht); font-size: 0.95em; margin-bottom: 1.25rem; max-width: 46rem; }
+
+/* Inloggen */
+.inlog { min-height: 100vh; display: grid; place-items: center; padding: 1rem; }
+.inlog__kaart { width: min(100%, 24rem); background: var(--vlak); border: 2px solid var(--inkt); border-radius: var(--radius); padding: 1.75rem; display: grid; gap: 1rem; }
+.inlog__kaart h1 { font-size: 2rem; font-weight: 800; }
+.inlog__kaart p { margin: 0; }
+.inlog__terug { font-size: 0.9em; }
+
+/* Velden */
+.beheer label, .beheer legend { font-weight: 700; }
+#algemeen fieldset:nth-of-type(n+3) label { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.9em; font-weight: 600; color: var(--zacht); }
+.beheer input[type="text"], .beheer input[type="password"], .beheer textarea, .beheer select {
+  width: 100%; font: inherit; color: var(--inkt); background-color: var(--vlak); border: 2px solid var(--lijn); border-radius: 8px; padding: 0.6rem 0.75rem;
+}
+.beheer select { padding-right: 2.75rem; color: #111; background-color: #fff; }
+.beheer input, .beheer select { min-height: 2.9rem; }
+.beheer textarea { resize: vertical; line-height: 1.5; min-height: 5rem; }
+.beheer input:focus-visible, .beheer textarea:focus-visible, .beheer select:focus-visible { border-color: var(--inkt); }
+.beheer .veld { margin-bottom: 1.1rem; }
+.veld__code { font-weight: 400; color: var(--zacht); font-size: 0.85em; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.veld__uitleg { color: var(--zacht); font-size: 0.9em; margin: 0; }
+fieldset { border: 0; padding: 0; margin: 0 0 1.5rem; min-width: 0; }
+legend { padding: 0; font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75rem; }
+
+/* Bovenbalk */
+.balk { background: var(--inkt); color: var(--bg); }
+.balk a, .balk .linkknop { color: var(--bg); }
+.balk :focus-visible { outline-color: var(--accent); }
+.balk__in { display: flex; flex-wrap: wrap; gap: 0.25rem 1.5rem; align-items: center; justify-content: space-between; padding-block: 0.75rem; }
+.balk p { margin: 0; }
+.balk__titel { font-weight: 800; font-size: 1.1rem; }
+.balk__titel span { font-weight: 400; opacity: 0.8; }
+.balk__links { display: flex; gap: 1.25rem; align-items: center; font-size: 0.95em; }
+.linkknop { background: none; border: 0; padding: 0.5rem 0; font: inherit; text-decoration: underline; text-underline-offset: 0.15em; cursor: pointer; }
+
+.beheer__in { padding-block: 1.5rem 2rem; }
+.modus { color: var(--zacht); font-size: 0.95em; margin: 0 0 1.25rem; max-width: 50rem; }
+.noot--let-op { margin: 0 0 1.25rem; padding: 0.9rem 1rem; background: var(--hinder-bg); color: var(--hinder); border-left: 6px solid currentColor; border-radius: 4px; font-weight: 600; }
+
+/* Tabs */
+.tabs { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.75rem; border-bottom: 2px solid var(--inkt); padding-bottom: 1rem; }
+.tab { min-height: 2.75rem; padding: 0.4rem 1rem; border-radius: 999px; border: 2px solid var(--inkt); background: transparent; color: var(--inkt); font: inherit; font-weight: 700; cursor: pointer; }
+.tab[aria-pressed="true"] { background: var(--inkt); color: var(--bg); }
+.tab .stip { display: inline-block; width: 0.55rem; height: 0.55rem; border-radius: 50%; background: var(--accent); margin-left: 0.4rem; border: 1px solid currentColor; }
+
+.paneel { max-width: 52rem; }
+.kiezer { display: grid; gap: 0 1rem; }
+@media (min-width: 40rem) { .kiezer { grid-template-columns: 1fr 1fr; } }
+
+/* Herhaalbare onderdelen */
+.rij { display: grid; grid-template-columns: 1fr auto; gap: 0.5rem; align-items: start; margin-bottom: 0.6rem; }
+.kaart { border: 2px solid var(--lijn); border-radius: var(--radius); padding: 1rem; margin-bottom: 0.9rem; background: var(--vlak); }
+.kaart--hinder { border-left: 6px solid var(--hinder); }
+.kaart--help { border-left: 6px solid var(--help); }
+.kaart .veld:last-of-type { margin-bottom: 0.6rem; }
+.klein { min-height: 2.75rem; padding: 0.35rem 0.9rem; border-radius: 999px; border: 2px solid var(--lijn); background: transparent; color: var(--inkt); font: inherit; font-size: 0.9em; font-weight: 700; cursor: pointer; }
+.klein:hover { border-color: var(--inkt); }
+.tabel { display: grid; gap: 1rem; }
+.tabel__rij { border: 2px solid var(--lijn); border-radius: var(--radius); padding: 1rem 1rem 0.2rem; background: var(--vlak); }
+.tabel__rij h4 { font-size: 1rem; margin-bottom: 0.75rem; }
+@media (min-width: 44rem) { .tabel__velden { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1rem; } .tabel__velden .breed { grid-column: 1 / -1; } }
+.beheer details > summary { font-weight: 700; padding: 0.6rem 0; cursor: pointer; }
+.beheer code { background: var(--vlak); border: 1px solid var(--lijn); border-radius: 4px; padding: 0.05em 0.35em; font-size: 0.9em; }
+
+/* Opslagbalk */
+.opslagbalk { position: fixed; left: 0; right: 0; bottom: 0; background: var(--vlak); border-top: 2px solid var(--inkt); z-index: 5; }
+.opslagbalk__in { display: flex; flex-wrap: wrap; gap: 0.5rem 1rem; align-items: center; justify-content: space-between; padding-block: 0.6rem; }
+.opslagbalk__status { margin: 0; font-weight: 700; font-size: 0.95em; }
+.opslagbalk__knoppen { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.knop[disabled] { opacity: 0.45; cursor: not-allowed; }

@@ -4,6 +4,8 @@
   'use strict';
 
   var MAP = 'inhoud/';
+  /* Voorbeeld vanuit het dashboard: toont wijzigingen die nog niet zijn opgeslagen (alleen in deze browser). */
+  var CONCEPT = /[?&]concept=1(&|$)/.test(location.search);
   var $ = function (id) { return document.getElementById(id); };
   var staat = { t: {}, leeftijden: [], domeinen: [], cache: {} };
 
@@ -80,6 +82,9 @@
   /* ---------- Inlezen ---------- */
 
   function haal(bestand) {
+    if (CONCEPT) {
+      try { var c = localStorage.getItem('aila-concept:' + bestand); if (c !== null) return Promise.resolve(c); } catch (e) { /* niets */ }
+    }
     return fetch(MAP + bestand, { cache: 'no-cache' }).then(function (r) {
       if (!r.ok) throw new Error(bestand + ': ' + r.status);
       return r.text();
@@ -246,6 +251,7 @@
       $('resultaat').hidden = false;
       document.title = d.naam + ' · ' + l.leeftijd + ' – ' + staat.titel;
       var p = new URLSearchParams(); p.set('leeftijd', lftId); p.set('domein', domId);
+      if (CONCEPT) p.set('concept', '1');
       try { history.replaceState(null, '', '?' + p.toString()); } catch (e) { /* bv. file:// */ }
       if (focus) {
         var rustig = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -295,6 +301,11 @@
   }
 
   function start() {
+    if (CONCEPT) {
+      var band = document.createElement('p'); band.className = 'conceptband'; band.setAttribute('role', 'status');
+      band.textContent = 'Voorbeeld: je ziet ook wijzigingen die nog niet zijn opgeslagen.';
+      document.body.prepend(band);
+    }
     haal('algemeen.md').then(function (md) {
       leesAlgemeen(md); vulTeksten(); vulFormulier();
       var p = new URLSearchParams(location.search);
@@ -317,7 +328,7 @@
       $('keuze').reset(); werkUitlegBij();
       verbergResultaat(); $('melding').textContent = '';
       document.title = staat.titel || document.title;
-      try { history.replaceState(null, '', location.pathname); } catch (e) { /* niets */ }
+      try { history.replaceState(null, '', location.pathname + (CONCEPT ? '?concept=1' : '')); } catch (e) { /* niets */ }
       $('domein').focus();
     });
     ['jonger', 'ouder'].forEach(function (id) {

@@ -39,12 +39,51 @@ De adviezen zijn hypotheses van onderzoekers en geen voorschriften. Ze bouwen vo
 
 Je hoeft niet te kunnen programmeren. De teksten staan los van de techniek.
 
-| Bestand | Wat staat erin | Aanpassen? |
+| Bestand of map | Wat staat erin | Aanpassen? |
 | --- | --- | --- |
 | `inhoud/algemeen.md` | Titel, inleiding, keuzelijsten, knoppen, koppen, de uitklapteksten onder "Achtergrond" en de voettekst | Ja, vrij |
 | `inhoud/0-2-jaar.md` t/m `inhoud/26-40-jaar.md` | De adviezen: per bestand tien domeinen voor die leeftijd | Ja, vrij |
+| `beheer/` | Het dashboard waarmee je alle teksten in een formulier aanpast | Alleen het wachtwoord |
 | `stijl.css` | Kleuren, lettertypen en indeling | Voor een eigen huisstijl |
 | `index.html` en `app.js` | De pagina en de werking | Meestal niet nodig |
+
+## Beheren via het dashboard
+
+Achter het adres van de website zet je `/beheer/`, bijvoorbeeld `https://jouwschool.nl/ai-advies/beheer/`. Daar pas je alle teksten aan in gewone invulvelden, zonder een tekstbestand te openen.
+
+**Het wachtwoord is `entree`.**
+
+In het dashboard kun je:
+
+- per leeftijd en domein de samenvatting, aanbevelingen, mijlpalen, stellingen en bronnen aanpassen, en stellingen of aanbevelingen toevoegen en verwijderen;
+- de titel, de inleiding, alle knoppen en koppen, de uitklapteksten en de voettekst aanpassen;
+- de namen van de leeftijdsgroepen en domeinen aanpassen;
+- met **Voorbeeld bekijken** de website zien met jouw wijzigingen, voordat iemand anders ze ziet.
+
+Het dashboard werkt op twee manieren. Het kiest zelf de juiste.
+
+| | Webruimte met PHP | Zonder PHP (bijvoorbeeld GitHub Pages) |
+| --- | --- | --- |
+| Opslaan | Direct: na "Opslaan" ziet iedereen de nieuwe tekst | Je downloadt de gewijzigde bestanden en zet ze zelf in de map `inhoud` |
+| Wachtwoord staat in | `beheer/instellingen.php` | `beheer/instellingen.js` |
+| Wat beschermt het wachtwoord | De teksten op de website | Niets: het is een drempel, er wordt hier niets op de website opgeslagen |
+| Vorige versies | Bewaard in `beheer/kopieen` | Via de geschiedenis van GitHub |
+
+### Het wachtwoord wijzigen
+
+Open het bestand uit de tabel hierboven en vervang `entree` door een eigen wachtwoord.
+
+Doe dit **altijd** op webruimte met PHP. Het standaardwachtwoord staat in deze README, dus iedereen die de website vindt, kan anders de teksten aanpassen. Het dashboard waarschuwt zolang het standaardwachtwoord in gebruik is. Meer dan de teksten kan iemand niet veranderen: het dashboard schrijft alleen de bestaande tekstbestanden in de map `inhoud`.
+
+### Intern uitrollen binnen een school of organisatie
+
+1. Download de bestanden met **Code → Download ZIP** en pak ze uit.
+2. Zet de hele map op de webruimte van je school of op het intranet. Gewone webhosting met PHP volstaat; een database is niet nodig.
+3. Zorg dat de webserver in de map `inhoud` mag schrijven. Bij de meeste hosting is dat al zo; anders regelt je ICT-beheerder het.
+4. Wijzig het wachtwoord in `beheer/instellingen.php`.
+5. Ga naar `/beheer/` en pas de teksten aan.
+
+Moet de website alleen voor medewerkers zichtbaar zijn, zet hem dan achter de inlog van je intranet of laat je ICT-beheerder de map afschermen. De tool zelf heeft geen inlog voor bezoekers.
 
 ## Een eigen kopie maken
 
@@ -54,9 +93,9 @@ Je hoeft niet te kunnen programmeren. De teksten staan los van de techniek.
 
 Liever geen GitHub? Klik op de groene knop **Code → Download ZIP** en zet de bestanden op een eigen webruimte.
 
-## Teksten zelf aanpassen
+## Teksten aanpassen in de bestanden zelf
 
-Open een bestand in de map `inhoud`, klik op het potlood, pas de tekst aan en klik op **Commit changes**. De website toont de wijziging daarna vanzelf.
+Liever zonder dashboard? Open een bestand in de map `inhoud`, klik op het potlood, pas de tekst aan en klik op **Commit changes**. De website toont de wijziging daarna vanzelf.
 
 Drie afspraken, dan gaat er niets stuk:
 
