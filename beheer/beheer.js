@@ -14,7 +14,8 @@
     modus: null,          // 'server' of 'statisch'
     wachtwoord: '',
     bestanden: {},        // naam -> { origineel, model, soort }
-    leeftijden: [], domeinen: []
+    leeftijden: [], domeinen: [],
+    tabs: {}              // tabbladen waarin sinds het laatste opslaan iets is aangepast
   };
 
   /* ---------- Hulpjes ---------- */
@@ -80,6 +81,7 @@
 
   /* Na elke wijziging: concept bijwerken en de balk verversen. */
   function gewijzigdBestand(naam) {
+    var actief = document.querySelector('.tab[aria-pressed="true"]'); if (actief) S.tabs[actief.dataset.tab] = true;
     var b = S.bestanden[naam], tekst = huidig(b);
     if (tekst === b.origineel) opslag('wis', CONCEPT + naam); else opslag('zet', CONCEPT + naam, tekst);
     werkBalkBij();
@@ -92,8 +94,8 @@
     $('opslaan').disabled = n.length === 0;
     $('herstel').hidden = n.length === 0;
     document.querySelectorAll('.tab .stip').forEach(function (s) { s.remove(); });
-    var metStip = {};
-    n.forEach(function (naam) { if (naam === 'algemeen.md') { metStip.algemeen = true; metStip.indeling = true; } else metStip.adviezen = true; });
+    if (!n.length) S.tabs = {};
+    var metStip = S.tabs;
     Object.keys(metStip).forEach(function (t) {
       if (!metStip[t]) return;
       var tab = document.querySelector('.tab[data-tab="' + t + '"]');
@@ -153,6 +155,9 @@
           v.append(el('button', { type: 'button', klasse: 'klein', tekst: 'Aanbeveling ' + (i + 1) + ' verwijderen', onclick: verwijder }));
           return v;
         }, 'Aanbeveling toevoegen'),
+        el('fieldset', {}, el('legend', { tekst: 'Eigen aanvulling' }),
+          veld('Zo doen wij het', d.eigen, zet('eigen'), { rijen: 5,
+            uitleg: 'Afspraken of voorbeelden van je eigen school of organisatie. Staat op de website in een apart blok. Leeg laten betekent: niet tonen.' })),
         el('fieldset', {}, el('legend', { tekst: 'Ontwikkelingsprocessen en mijlpalen' }),
           veld('Tekst', d.ontwikkeling, zet('ontwikkeling'), { rijen: 14 })),
         stellingen('AI kan hinderen', d.hinderen, 'hinder'),
@@ -219,6 +224,98 @@
     ].filter(Boolean));
   }
 
+  /* ---------- Tab: huisstijl en weergave ---------- */
+
+  var STANDAARD = { accentkleur: '#ffd84d', kopkleur: '#111111' };
+  var MAX_LOGO = 150000;   // tekens; het logo wordt in algemeen.md zelf bewaard
+
+  function helderheid(hex) {
+    var k = [1, 3, 5].map(function (i) { var v = parseInt(hex.substr(i, 2), 16) / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+    return 0.2126 * k[0] + 0.7152 * k[1] + 0.0722 * k[2];
+  }
+
+  function tekenWeergave() {
+    var a = S.bestanden['algemeen.md'].model;
+    var s = M.sectieOfNieuw(a, 'Instellingen');
+    var lijst = M.paren(s);
+    var haal = function (sleutel) { var p = lijst.filter(function (x) { return x.sleutel === sleutel; })[0]; return p ? p.waarde : ''; };
+    var zet = function (sleutel, waarde) {
+      var p = lijst.filter(function (x) { return x.sleutel === sleutel; })[0];
+      if (p) p.waarde = waarde; else lijst.push({ sleutel: sleutel, waarde: waarde });
+      M.zetParen(s, lijst); gewijzigdBestand('algemeen.md');
+    };
+
+    function kleur(label, sleutel, uitleg, controleer) {
+      var id = 'k-' + sleutel, waarde = /^#[0-9a-f]{6}$/i.test(haal(sleutel)) ? haal(sleutel) : '';
+      var kiezer = el('input', { type: 'color', id: id, value: waarde || STANDAARD[sleutel], 'aria-describedby': id + 'u' });
+      var let_op = el('p', { klasse: 'veld__uitleg veld__let-op', role: 'status' });
+      var toets = function () { let_op.textContent = waarde && controleer ? controleer(waarde) : ''; };
+      kiezer.addEventListener('input', function () { waarde = kiezer.value; zet(sleutel, waarde); toets(); });
+      var terug = el('button', { type: 'button', klasse: 'klein', tekst: 'Standaard', onclick: function () {
+        waarde = ''; kiezer.value = STANDAARD[sleutel]; zet(sleutel, ''); toets();
+      } });
+      toets();
+      return el('div', { klasse: 'veld' }, el('label', { for: id, tekst: label }), el('p', { klasse: 'veld__uitleg', id: id + 'u', tekst: uitleg }),
+        el('div', { klasse: 'kleurrij' }, kiezer, terug), let_op);
+    }
+
+    function logo() {
+      var voorbeeld = el('div', { klasse: 'logovoorbeeld' });
+      var melding = el('p', { klasse: 'veld__uitleg veld__let-op', role: 'status' });
+      var teken = function () {
+        voorbeeld.replaceChildren();
+        if (haal('logo')) voorbeeld.append(el('img', { src: haal('logo'), alt: 'Huidig logo' }),
+          el('button', { type: 'button', klasse: 'klein', tekst: 'Logo verwijderen', onclick: function () { zet('logo', ''); teken(); } }));
+      };
+      var kies = el('input', { type: 'file', id: 'logo-bestand', accept: 'image/png,image/jpeg,image/webp,image/svg+xml', 'aria-describedby': 'logo-u' });
+      kies.addEventListener('change', function () {
+        var f = kies.files[0]; melding.textContent = ''; if (!f) return;
+        var lezer = new FileReader();
+        lezer.onload = function () {
+          if (String(lezer.result).length > MAX_LOGO) { melding.textContent = 'Dit bestand is te groot. Kies een logo van hooguit ongeveer 100 kB.'; kies.value = ''; return; }
+          zet('logo', String(lezer.result)); teken();
+        };
+        lezer.readAsDataURL(f);
+      });
+      teken();
+      return el('div', { klasse: 'veld' }, el('label', { for: 'logo-bestand', tekst: 'Logo' }),
+        el('p', { klasse: 'veld__uitleg', id: 'logo-u', tekst: 'Een png, jpg of svg van hooguit ongeveer 100 kB. Het logo komt boven de titel te staan.' }), kies, melding, voorbeeld);
+    }
+
+    function zichtbaar(kop, woord, sleutel) {
+      var verborgen = haal(sleutel).split(',').map(function (x) { return x.trim(); }).filter(Boolean);
+      var set = el('fieldset', {}, el('legend', { tekst: kop }));
+      var let_op = el('p', { klasse: 'veld__uitleg veld__let-op', role: 'status' });
+      var rijen = M.rijen(M.sectie(a, woord));
+      rijen.forEach(function (r) {
+        var id = 'z-' + sleutel + '-' + r[0];
+        var vak = el('input', { type: 'checkbox', id: id }); vak.checked = verborgen.indexOf(r[0]) === -1;
+        vak.addEventListener('change', function () {
+          verborgen = verborgen.filter(function (x) { return x !== r[0]; }); if (!vak.checked) verborgen.push(r[0]);
+          zet(sleutel, rijen.map(function (x) { return x[0]; }).filter(function (x) { return verborgen.indexOf(x) !== -1; }).join(', '));
+          let_op.textContent = verborgen.length >= rijen.length ? 'Alles is verborgen: bezoekers kunnen nu niets kiezen.' : '';
+        });
+        set.append(el('div', { klasse: 'vinkje' }, vak, el('label', { for: id, tekst: (r[1] || r[0]) + (r[3] && woord === 'leeftijdsgroepen' ? ' · ' + r[3] : '') })));
+      });
+      set.append(let_op);
+      return set;
+    }
+
+    $('weergave').replaceChildren(
+      el('fieldset', {}, el('legend', { tekst: 'Huisstijl' }),
+        veld('Naam van de school of organisatie', haal('naam-organisatie'), function (v) { zet('naam-organisatie', v); },
+          { soort: 'regel', uitleg: 'Staat boven de titel als er geen logo is, en bij het blok met de eigen aanvulling.' }),
+        logo(),
+        veld('Link achter het logo', haal('logo-link'), function (v) { zet('logo-link', v.trim()); }, { soort: 'regel', uitleg: 'Bijvoorbeeld https://www.jouwschool.nl. Mag leeg blijven.' }),
+        kleur('Accentkleur', 'accentkleur', 'De kleur van de band met de keuzelijsten. De tekst erop wordt vanzelf zwart of wit.'),
+        kleur('Kleur van titels en knoppen', 'kopkleur', 'Kies een donkere kleur, zodat de tekst leesbaar blijft.', function (hex) {
+          return (1.05) / (helderheid(hex) + 0.05) < 4.5 ? 'Deze kleur is te licht voor titels op een lichte achtergrond. Kies een donkerdere kleur.' : '';
+        })),
+      zichtbaar('Leeftijdsgroepen die bezoekers zien', 'leeftijdsgroepen', 'verborgen-leeftijden'),
+      zichtbaar('Domeinen die bezoekers zien', 'ontwikkelingsdomeinen', 'verborgen-domeinen')
+    );
+  }
+
   function werkKiezerBij() {
     var a = S.bestanden['algemeen.md'].model;
     [['b-leeftijd', 'leeftijdsgroepen'], ['b-domein', 'ontwikkelingsdomeinen']].forEach(function (k) {
@@ -267,7 +364,7 @@
     Object.keys(S.bestanden).forEach(function (naam) {
       var b = S.bestanden[naam]; b.model = lees(b.soort, b.origineel); opslag('wis', CONCEPT + naam);
     });
-    werkKiezerBij(); tekenAlgemeen(); tekenIndeling(); tekenAdvies(); werkBalkBij('De wijzigingen zijn ongedaan gemaakt.');
+    werkKiezerBij(); tekenAlgemeen(); tekenIndeling(); tekenWeergave(); tekenAdvies(); werkBalkBij('De wijzigingen zijn ongedaan gemaakt.');
   }
 
   function toonVoorbeeld() {
@@ -318,7 +415,7 @@
     $('waarschuwing').textContent = w.join(' '); $('waarschuwing').hidden = !w.length;
 
     laad('algemeen.md').then(function () {
-      werkKiezerBij(); tekenAlgemeen(); tekenIndeling();
+      werkKiezerBij(); tekenAlgemeen(); tekenIndeling(); tekenWeergave();
       /* Concepten van een vorige keer weer inladen */
       var eerder = M.rijen(M.sectie(S.bestanden['algemeen.md'].model, 'leeftijdsgroepen'))
         .map(function (r) { return r[0] + '-jaar.md'; })

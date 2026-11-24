@@ -15,6 +15,7 @@
   <header class="kop band">
     <div class="wrap kop__in">
       <div>
+        <p id="merk" class="kop__merk" hidden></p>
         <h1 data-tekst="titel">AI-advies per leeftijd</h1>
         <p class="kop__intro" data-tekst="inleiding"></p>
       </div>
@@ -62,6 +63,14 @@
       <section class="blok" id="blok-aanbevelingen" aria-labelledby="kop-aanbevelingen">
         <h3 id="kop-aanbevelingen" data-t="kop-aanbevelingen">Onze aanbevelingen</h3>
         <div class="blok__inhoud"><ol id="aanbevelingen" class="aanbevelingen"></ol></div>
+      </section>
+
+      <section class="blok blok--eigen" id="blok-eigen" aria-labelledby="kop-eigen" hidden>
+        <div>
+          <h3 id="kop-eigen" data-t="kop-eigen">Zo doen wij het</h3>
+          <p id="eigen-van" class="blok__van" hidden></p>
+        </div>
+        <div class="blok__inhoud"><div id="eigen" class="tekst"></div></div>
       </section>
 
       <section class="blok" id="blok-ontwikkeling" aria-labelledby="kop-ontwikkeling">

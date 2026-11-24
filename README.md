@@ -32,7 +32,7 @@ De adviezen zijn hypotheses van onderzoekers en geen voorschriften. Ze bouwen vo
 ## Wat kun je ermee?
 
 - **Gebruiken zoals het is**: als gespreksstof in een team, als onderbouwing voor AI-beleid op school of als houvast bij de vraag of een AI-toepassing past bij jouw leerlingen, studenten of kind.
-- **Een eigen versie maken**: bijvoorbeeld met de huisstijl van je school, in eenvoudiger taal, met eigen voorbeelden of alleen voor de leeftijden waarmee jij werkt.
+- **Een eigen versie maken**: met het logo en de kleuren van je school, eigen afspraken bij elk advies en alleen de leeftijden waarmee jij werkt. Dat regel je in het dashboard, zonder te programmeren.
 - **De vertaling verbeteren**: zie je een zin die beter kan, pas hem aan. Alle teksten staan in gewone tekstbestanden.
 
 ## Hoe zit het in elkaar?
@@ -58,6 +58,9 @@ In het dashboard kun je:
 - per leeftijd en domein de samenvatting, aanbevelingen, mijlpalen, stellingen en bronnen aanpassen, en stellingen of aanbevelingen toevoegen en verwijderen;
 - de titel, de inleiding, alle knoppen en koppen, de uitklapteksten en de voettekst aanpassen;
 - de namen van de leeftijdsgroepen en domeinen aanpassen;
+- per advies een **eigen aanvulling** toevoegen ("Zo doen wij het"), met afspraken of voorbeelden van jouw school. Dat blok staat apart van de tekst van Harvard, zodat zichtbaar blijft wat van wie komt;
+- de **huisstijl** instellen: naam van de school, logo, een accentkleur en een kleur voor titels en knoppen;
+- **leeftijdsgroepen en domeinen verbergen**. Een basisschool toont bijvoorbeeld alleen 3 tot en met 11 jaar, een mbo alleen 15 tot en met 25;
 - met **Voorbeeld bekijken** de website zien met jouw wijzigingen, voordat iemand anders ze ziet.
 
 Het dashboard werkt op twee manieren. Het kiest zelf de juiste.
@@ -102,6 +105,8 @@ Drie afspraken, dan gaat er niets stuk:
 1. Laat regels als `<!-- domein: relaties -->` staan. Daarmee vindt de website het juiste domein.
 2. Laat de koppen met `##` staan, zoals `## In het kort` en `## AI kan helpen`. De koppen die de bezoeker ziet, pas je aan in `algemeen.md`.
 3. In lijsten met `|` of `:` blijft de code vooraan staan, bijvoorbeeld `6-8` of `knop-toon`. De tekst erachter is vrij.
+
+Een eigen aanvulling bij een advies zet je onder een extra kop `## Eigen aanvulling`, tussen de aanbevelingen en de ontwikkeling. Huisstijl en verborgen leeftijden staan in `algemeen.md` onder `## Instellingen`.
 
 Opmaak werkt zoals gebruikelijk in Markdown: `**vet**`, `*cursief*`, `- opsomming`, `1. genummerd` en `[linktekst](https://voorbeeld.nl)`. Een stelling onder "AI kan hinderen" of "AI kan helpen" begint met `###`. Je kunt stellingen toevoegen of weghalen.
 

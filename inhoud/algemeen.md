@@ -72,6 +72,7 @@ Het deel vóór de dubbele punt is een code en blijft staan. Het deel erna is de
 - melding-leeg: Voor deze combinatie is nog geen advies beschikbaar.
 - kop-kort: In het kort
 - kop-aanbevelingen: Onze aanbevelingen
+- kop-eigen: Zo doen wij het
 - kop-ontwikkeling: Belangrijke ontwikkelingsprocessen en mijlpalen
 - kop-factoren: Hoe AI de ontwikkeling in deze fase kan hinderen of helpen
 - factoren-toelichting: Hoe kunnen we over de rol van AI denken, als we uitgaan van wat de wetenschap al lang weet over menselijke ontwikkeling?
@@ -89,6 +90,18 @@ Het deel vóór de dubbele punt is een code en blijft staan. Het deel erna is de
 - kop-achtergrond: Achtergrond
 - knop-link: Kopieer de link naar dit advies
 - link-gekopieerd: De link staat op het klembord.
+
+## Instellingen
+
+Huisstijl en weergave. Leeg laten betekent: de standaard gebruiken. Kleuren schrijf je als kleurcode, bijvoorbeeld #1b3a6b. Bij verborgen leeftijden en domeinen zet je de codes achter elkaar met komma's ertussen, bijvoorbeeld 0-2, 26-40.
+
+- naam-organisatie:
+- logo:
+- logo-link:
+- accentkleur:
+- kopkleur:
+- verborgen-leeftijden:
+- verborgen-domeinen:
 
 ## De menselijke lus
 

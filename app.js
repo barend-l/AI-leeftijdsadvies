@@ -7,7 +7,7 @@
   /* Voorbeeld vanuit het dashboard: toont wijzigingen die nog niet zijn opgeslagen (alleen in deze browser). */
   var CONCEPT = /[?&]concept=1(&|$)/.test(location.search);
   var $ = function (id) { return document.getElementById(id); };
-  var staat = { t: {}, leeftijden: [], domeinen: [], cache: {} };
+  var staat = { t: {}, inst: {}, leeftijden: [], domeinen: [], cache: {} };
 
   /* ---------- Markdown (klein en vergevingsgezind) ---------- */
 
@@ -108,6 +108,15 @@
       var i = p.indexOf(':'); if (i > 0) t[p.slice(0, i).trim()] = p.slice(i + 1).trim();
     });
     staat.t = t;
+    var inst = {};
+    punten(vind(s, 'instellingen')).forEach(function (p) {
+      var i = p.indexOf(':'); if (i > 0) inst[p.slice(0, i).trim()] = p.slice(i + 1).trim();
+    });
+    staat.inst = inst;
+    var verborgen = function (sleutel) { return (inst[sleutel] || '').split(',').map(function (x) { return x.trim(); }).filter(Boolean); };
+    var vl = verborgen('verborgen-leeftijden'), vd = verborgen('verborgen-domeinen');
+    staat.leeftijden = staat.leeftijden.filter(function (l) { return vl.indexOf(l.id) === -1; });
+    staat.domeinen = staat.domeinen.filter(function (d) { return vd.indexOf(d.id) === -1; });
     staat.lus = vind(s, 'menselijke lus');
     staat.onderzoek = vind(s, 'over het onderzoek');
   }
@@ -127,6 +136,7 @@
         ai: vind(s, 'ai in deze fase'),
         aanbevelingen: punten(vind(s, 'aanbevelingen')),
         ontwikkeling: vind(s, 'ontwikkeling in deze fase'),
+        eigen: vind(s, 'eigen aanvulling'),
         factoren: factoren,
         bronnen: vind(s, 'bronnen')
       };
@@ -237,6 +247,8 @@
         var li = document.createElement('li'); li.innerHTML = inline(a); return li;
       }));
       toon('blok-aanbevelingen', c.aanbevelingen.length > 0);
+      $('eigen').innerHTML = blokken(c.eigen);
+      toon('blok-eigen', !!c.eigen);
       $('ontwikkeling').innerHTML = blokken(c.ontwikkeling);
       toon('blok-ontwikkeling', !!c.ontwikkeling);
       $('factoren').replaceChildren.apply($('factoren'), c.factoren.map(maakFactor));
@@ -280,6 +292,34 @@
     d.append(s, inhoud); return d;
   }
 
+  /* ---------- Huisstijl ---------- */
+
+  function helderheid(hex) {
+    var k = [1, 3, 5].map(function (i) { var v = parseInt(hex.substr(i, 2), 16) / 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); });
+    return 0.2126 * k[0] + 0.7152 * k[1] + 0.0722 * k[2];
+  }
+
+  function pasHuisstijlToe() {
+    var i = staat.inst, stijl = document.documentElement.style, kleur = /^#[0-9a-f]{6}$/i;
+    if (kleur.test(i['accentkleur'] || '')) {
+      stijl.setProperty('--accent', i['accentkleur']);
+      /* zwarte of witte tekst op het accent, wat het best leesbaar is */
+      stijl.setProperty('--accent-inkt', helderheid(i['accentkleur']) > 0.179 ? '#111111' : '#ffffff');
+    }
+    if (kleur.test(i['kopkleur'] || '')) stijl.setProperty('--merk-licht', i['kopkleur']);
+    var naam = i['naam-organisatie'] || '', logo = i['logo'] || '', merk = $('merk');
+    var logoGoed = /^(https?:\/\/|data:image\/(png|jpeg|webp|gif|svg\+xml);base64,|[\w.\-\/]+$)/i.test(logo) && !/^\/\//.test(logo);
+    merk.replaceChildren();
+    if (logo && logoGoed) {
+      var img = document.createElement('img'); img.src = logo; img.alt = naam || 'Logo';
+      var link = /^https?:\/\//i.test(i['logo-link'] || '') ? document.createElement('a') : document.createElement('span');
+      if (link.tagName === 'A') link.href = i['logo-link'];
+      link.appendChild(img); merk.appendChild(link);
+    } else if (naam) merk.textContent = naam;
+    merk.hidden = !merk.childNodes.length;
+    $('eigen-van').textContent = naam; $('eigen-van').hidden = !naam;
+  }
+
   /* ---------- Start ---------- */
 
   function vulTeksten() {
@@ -307,7 +347,7 @@
       document.body.prepend(band);
     }
     haal('algemeen.md').then(function (md) {
-      leesAlgemeen(md); vulTeksten(); vulFormulier();
+      leesAlgemeen(md); pasHuisstijlToe(); vulTeksten(); vulFormulier();
       var p = new URLSearchParams(location.search);
       if (p.get('domein')) $('domein').value = p.get('domein');
       if (p.get('leeftijd')) $('leeftijd').value = p.get('leeftijd');

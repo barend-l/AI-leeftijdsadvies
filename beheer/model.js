@@ -58,6 +58,7 @@
       kort: tekst('in het kort'),
       ai: tekst('ai in deze fase'),
       aanbevelingen: punten(tekst('aanbevelingen')),
+      eigen: tekst('eigen aanvulling'),
       ontwikkeling: tekst('ontwikkeling in deze fase'),
       hinderen: stellingen('kan hinder'),
       helpen: stellingen('kan help'),
@@ -80,6 +81,7 @@
     deel('In het kort', b.kort);
     deel('AI in deze fase', b.ai);
     deel('Aanbevelingen', b.aanbevelingen.map(eenRegel).filter(Boolean).map(function (a) { return '- ' + a; }).join('\n'));
+    if (String(b.eigen || '').trim()) deel('Eigen aanvulling', b.eigen);
     deel('Ontwikkeling in deze fase', b.ontwikkeling);
     stellingen('AI kan hinderen', b.hinderen);
     stellingen('AI kan helpen', b.helpen);
@@ -113,7 +115,7 @@
   /* Lijstsecties: uitlegregels blijven staan, de opsomming wordt vervangen. */
   function lijstVan(s) { return s ? punten(s.body) : []; }
   function zetLijst(s, items) {
-    var uitleg = s.body.split('\n').filter(function (r) { return !/^\s*[-*]\s+/.test(r); }).join('\n').trim();
+    var uitleg = s.body.split('\n').filter(function (r) { return !/^\s*[-*](\s+|$)/.test(r) && !/^\s*[-*]\s*[\w-]+:\s*$/.test(r); }).join('\n').trim();
     s.body = '\n' + (uitleg ? uitleg + '\n\n' : '') + items.map(function (i) { return '- ' + eenRegel(i); }).join('\n') + '\n\n';
   }
 
@@ -121,9 +123,17 @@
     return lijstVan(s).map(function (p) {
       var i = p.indexOf(':');
       return i > 0 ? { sleutel: p.slice(0, i).trim(), waarde: p.slice(i + 1).trim() } : { sleutel: p, waarde: '' };
+    }).filter(function (p) { return p.sleutel;
     });
   }
-  function zetParen(s, lijst) { zetLijst(s, lijst.map(function (p) { return p.sleutel + ': ' + eenRegel(p.waarde); })); }
+  function zetParen(s, lijst) { zetLijst(s, lijst.map(function (p) { return (p.sleutel + ': ' + eenRegel(p.waarde)).trim(); })); }
+
+  /* Sectie ophalen of, als ze ontbreekt, achteraan toevoegen */
+  function sectieOfNieuw(a, kop) {
+    var s = vind(a.secties, kop.toLowerCase());
+    if (!s) { s = { kop: kop, body: '\n\n' }; var laatste = a.secties[a.secties.length - 1]; if (laatste && !/\n\n$/.test(laatste.body)) laatste.body += '\n'; a.secties.push(s); }
+    return s;
+  }
 
   function rijen(s) { return lijstVan(s).map(function (p) { return p.split('|').map(function (x) { return x.trim(); }); }); }
   function zetRijen(s, lijst) { zetLijst(s, lijst.map(function (r) { return r.map(eenRegel).join(' | '); })); }
@@ -179,7 +189,7 @@
   var Model = {
     schoon: schoon, eenRegel: eenRegel,
     leesLeeftijd: leesLeeftijd, schrijfLeeftijd: schrijfLeeftijd, leesBlok: leesBlok, maakBlok: maakBlok,
-    leesAlgemeen: leesAlgemeen, schrijfAlgemeen: schrijfAlgemeen, sectie: sectie,
+    leesAlgemeen: leesAlgemeen, schrijfAlgemeen: schrijfAlgemeen, sectie: sectie, sectieOfNieuw: sectieOfNieuw,
     tekstVan: tekstVan, zetTekst: zetTekst, lijstVan: lijstVan, zetLijst: zetLijst,
     paren: paren, zetParen: zetParen, rijen: rijen, zetRijen: zetRijen, maakZip: maakZip
   };

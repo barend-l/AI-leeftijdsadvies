@@ -41,6 +41,7 @@
       <button type="button" class="tab" data-tab="adviezen" aria-pressed="true">Adviezen</button>
       <button type="button" class="tab" data-tab="algemeen" aria-pressed="false">Algemene teksten</button>
       <button type="button" class="tab" data-tab="indeling" aria-pressed="false">Leeftijden en domeinen</button>
+      <button type="button" class="tab" data-tab="weergave" aria-pressed="false">Huisstijl en weergave</button>
       <button type="button" class="tab" data-tab="hulp" aria-pressed="false">Uitleg</button>
     </nav>
 
@@ -66,6 +67,12 @@
       <div id="indeling"></div>
     </section>
 
+    <section id="tab-weergave" class="paneel" aria-labelledby="kop-weergave" hidden>
+      <h2 id="kop-weergave">Huisstijl en weergave</h2>
+      <p class="hint">Maak de website herkenbaar als die van jouw school of organisatie, en kies welke leeftijden en domeinen bezoekers zien.</p>
+      <div id="weergave"></div>
+    </section>
+
     <section id="tab-hulp" class="paneel tekst" aria-labelledby="kop-hulp" hidden>
       <h2 id="kop-hulp">Uitleg</h2>
       <h3>Opmaak</h3>
@@ -75,6 +82,8 @@
         <li>Een link schrijf je als <code>[tekst](https://voorbeeld.nl)</code>.</li>
         <li>Een lege regel begint een nieuwe alinea.</li>
       </ul>
+      <h3>Eigen aanvulling</h3>
+      <p>Bij elk advies kun je een eigen blok toevoegen met afspraken of voorbeelden van jouw school. Dat blok staat apart van de tekst van Harvard, zodat zichtbaar blijft wat van wie komt. Laat je het leeg, dan verschijnt het niet.</p>
       <h3>Opslaan</h3>
       <p id="hulp-opslaan"></p>
       <h3>Voorbeeld bekijken</h3>

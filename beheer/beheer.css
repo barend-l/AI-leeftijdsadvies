@@ -74,3 +74,15 @@ legend { padding: 0; font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75re
 .opslagbalk__status { margin: 0; font-weight: 700; font-size: 0.95em; }
 .opslagbalk__knoppen { display: flex; flex-wrap: wrap; gap: 0.5rem; }
 .knop[disabled] { opacity: 0.45; cursor: not-allowed; }
+
+/* Huisstijl en weergave */
+.kleurrij { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: center; }
+.beheer input[type="color"] { width: 4.5rem; height: 2.9rem; padding: 0.2rem; border: 2px solid var(--lijn); border-radius: 8px; background: var(--vlak); cursor: pointer; }
+.beheer input[type="file"] { font: inherit; max-width: 100%; }
+.veld__let-op { color: var(--hinder); font-weight: 700; }
+.veld__let-op:empty { display: none; }
+.logovoorbeeld { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin-top: 0.5rem; }
+.logovoorbeeld img { max-height: 3.5rem; max-width: 14rem; background: #fff; border: 1px solid var(--lijn); border-radius: 6px; padding: 0.25rem; }
+.vinkje { display: flex; gap: 0.6rem; align-items: center; min-height: 2.75rem; }
+.vinkje input { width: 1.4rem; height: 1.4rem; min-height: 0; flex: none; accent-color: var(--inkt); }
+.vinkje label { font-weight: 400; }
