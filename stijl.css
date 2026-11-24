@@ -68,6 +68,12 @@ p { margin: 0 0 1em; }
 .kop h1 { color: var(--merk); font-size: clamp(1.75rem, 1.2rem + 2.8vw, 3.25rem); font-weight: 800; letter-spacing: -0.02em; }
 .kop__intro { font-size: clamp(1rem, 0.95rem + 0.4vw, 1.25rem); color: var(--zacht); max-width: 48rem; margin: 0.5rem 0 0; }
 .band--keuze { padding-block: clamp(1.25rem, 3vw, 2.25rem); }
+@media (max-width: 30rem) {
+  .kop { padding-block: 1rem 0.9rem; }
+  .kop__intro { font-size: 0.95rem; line-height: 1.5; margin-top: 0.4rem; }
+  .band--keuze { padding-block: 1rem; }
+  .keuze { gap: 0.75rem; }
+}
 
 /* Knoppen */
 .knop {
@@ -190,10 +196,12 @@ details summary { cursor: pointer; font-weight: 700; padding: 0.75rem 0; min-hei
 .voet__in { display: grid; gap: 0.5rem 2rem; }
 .voet p { margin: 0; }
 .voet__tekst { max-width: 42rem; color: var(--inkt); }
+.voet__repo { display: flex; flex-wrap: wrap; gap: 0 1.5rem; }
 .voet__repo a { display: inline-block; padding-block: 0.4rem; }
 .voet__klein { font-size: 0.9em; }
 @media (min-width: 52rem) {
   .voet__in { grid-template-columns: 1fr auto; align-items: start; }
+  .voet__repo { flex-direction: column; align-items: flex-end; gap: 0.2rem; }
   .voet__repo a { padding-block: 0; }
   .voet__klein { grid-column: 1 / -1; }
 }

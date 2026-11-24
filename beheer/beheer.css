@@ -7,7 +7,7 @@
 
 /* Inloggen */
 .inlog { min-height: 100vh; display: grid; place-items: center; padding: 1rem; }
-.inlog__kaart { width: min(100%, 24rem); background: var(--vlak); border: 2px solid var(--inkt); border-radius: var(--radius); padding: 1.75rem; display: grid; gap: 1rem; }
+.inlog__kaart { width: min(100%, 24rem); background: var(--vlak); border: 2px solid var(--inkt); border-top: 10px solid var(--accent); border-radius: var(--radius); padding: 1.75rem; display: grid; gap: 1rem; }
 .inlog__kaart h1 { font-size: 2rem; font-weight: 800; }
 .inlog__kaart p { margin: 0; }
 .inlog__terug { font-size: 0.9em; }

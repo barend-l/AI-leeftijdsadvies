@@ -337,6 +337,7 @@
     if (v['tekst']) $('voet-tekst').innerHTML = inline(v['tekst']);
     if (v['repo-tekst']) $('voet-repo').textContent = v['repo-tekst'];
     if (v['repo-link']) $('voet-repo').href = v['repo-link'];
+    if (v['beheer-tekst']) $('voet-beheer').textContent = v['beheer-tekst'];
     if (v['rechten']) $('voet-rechten').textContent = v['rechten'];
   }
 

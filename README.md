@@ -49,7 +49,7 @@ Je hoeft niet te kunnen programmeren. De teksten staan los van de techniek.
 
 ## Beheren via het dashboard
 
-Achter het adres van de website zet je `/beheer/`, bijvoorbeeld `https://jouwschool.nl/ai-advies/beheer/`. Daar pas je alle teksten aan in gewone invulvelden, zonder een tekstbestand te openen.
+Klik onderaan de website op **Beheer**, of zet `/beheer/` achter het adres van de website, bijvoorbeeld `https://jouwschool.nl/ai-advies/beheer/`. Daar pas je alle teksten aan in gewone invulvelden, zonder een tekstbestand te openen.
 
 **Het wachtwoord is `entree`.**
 
