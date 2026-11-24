@@ -86,3 +86,9 @@ legend { padding: 0; font-size: 1.15rem; font-weight: 800; margin-bottom: 0.75re
 .vinkje { display: flex; gap: 0.6rem; align-items: center; min-height: 2.75rem; }
 .vinkje input { width: 1.4rem; height: 1.4rem; min-height: 0; flex: none; accent-color: var(--inkt); }
 .vinkje label { font-weight: 400; }
+
+/* Demo */
+.inlog__demo { background: var(--accent); color: #111; border-radius: 8px; padding: 0.7rem 0.9rem; font-size: 0.95em; }
+.balk__demo { display: none; }
+.is-demo .balk__demo { display: inline-block; background: var(--accent); color: #111 !important; opacity: 1 !important; font-weight: 800 !important; font-size: 0.8em; border-radius: 999px; padding: 0.1rem 0.6rem; margin-left: 0.4rem; }
+.is-demo .modus { background: var(--accent); color: #111; border-radius: 8px; padding: 0.8rem 1rem; font-weight: 600; }

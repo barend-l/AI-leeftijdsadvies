@@ -382,8 +382,10 @@
       .catch(function () { return null; });
   }
 
+  var DEMO = ((window.BEHEER || {}).demo || []).indexOf(location.hostname) !== -1;
+
   function logIn(wachtwoord) {
-    return vraagServer(wachtwoord).then(function (antwoord) {
+    return (DEMO ? Promise.resolve(null) : vraagServer(wachtwoord)).then(function (antwoord) {
       if (antwoord) {           // website met PHP: de server controleert het wachtwoord
         if (!antwoord.ok) return false;
         S.modus = 'server'; S.server = antwoord; return true;
@@ -399,6 +401,7 @@
     $('opslaan').textContent = server ? 'Opslaan' : 'Download wijzigingen';
     $('modus').textContent = server
       ? 'Deze website slaat wijzigingen direct op. Na "Opslaan" ziet iedereen de nieuwe tekst.'
+      : DEMO ? 'Dit is een demo. Pas gerust alles aan en klik op "Voorbeeld bekijken" om het resultaat te zien. Er wordt niets op deze website opgeslagen; je wijzigingen blijven in je eigen browser. In je eigen versie sla je wel echt op.'
       : 'Deze website kan niet zelf opslaan. Je downloadt de gewijzigde bestanden en zet ze daarna in de map inhoud.';
     $('hulp-opslaan').textContent = server
       ? 'Klik onderaan op "Opslaan". De teksten staan daarna direct op de website. Van elke vorige versie blijft een kopie bewaard in de map beheer/kopieen.'
@@ -466,4 +469,5 @@
   try { bewaard = sessionStorage.getItem('aila-ww'); } catch (e) { /* niets */ }
   if (bewaard !== null) logIn(bewaard).then(function (goed) { if (goed) { S.wachtwoord = bewaard; start(); } });
   else $('wachtwoord').focus();
+  if (DEMO) { $('inlog-demo').hidden = false; document.body.classList.add('is-demo'); }
 })();

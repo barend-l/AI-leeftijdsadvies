@@ -72,6 +72,8 @@ Het dashboard werkt op twee manieren. Het kiest zelf de juiste.
 | Wat beschermt het wachtwoord | De teksten op de website | Niets: het is een drempel, er wordt hier niets op de website opgeslagen |
 | Vorige versies | Bewaard in `beheer/kopieen` | Via de geschiedenis van GitHub |
 
+Op de voorbeeldsite van Barend Last is het dashboard een demo: je kunt alles uitproberen en het voorbeeld bekijken, maar er wordt niets opgeslagen. In je eigen versie werkt het opslaan gewoon.
+
 ### Het wachtwoord wijzigen
 
 Open het bestand uit de tabel hierboven en vervang `entree` door een eigen wachtwoord.
